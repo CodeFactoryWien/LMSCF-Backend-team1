@@ -1,0 +1,4 @@
+blueish: #58b4ae
+yellowish: #ffe277
+orange matte: #ffb367
+natural skintone: #ffe2bc
