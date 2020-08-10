@@ -1,0 +1,133 @@
+Work on a project locally
+
+  new                                                            Create a new Symfony project
+  serve                                                          Run a local web server
+  server:stop                                                    Stop the local web server
+  security:check                                                 Check security issues in project dependencies
+  composer                                                       Runs Composer without memory limit
+  console                                                        Runs the Symfony Console (bin/console) for current project
+  php, pecl, pear, php-fpm, php-cgi, php-config, phpdbg, phpize  Runs the named binary using the configured PHP version
+
+Manage a project on Cloud
+
+  login        Log in with your SymfonyConnect account
+  init         Initialize a new project using templates
+  link         Link current git repository to a SymfonyCloud project
+  projects     List active projects
+  envs         List environments
+  env:create   Create an environment
+  tunnel:open  Open SSH tunnels to the app's services
+  ssh          Open an SSH connection to the app container
+  deploy       Deploy an environment
+  domains      List domains
+  vars         List variables
+  user:add     Add a user to the project
+
+Show all commands with symfony.exe help,
+Get help for a specific command with symfony.exe help COMMAND.
+
+RUN THIS BEFORE SERVER START
+composer require symfony/web-server-bundle --dev
+
+
+################################################cd 
+SET UP:
+Now we can go inside our project’s folder using :
+
+composer create-project symfony/website-skeleton my_project_name "4.3.*" = "version*"
+
+cd my-project
+
+ cd ..\ to go back to main folder
+
+Now we can run our project using this command line:
+
+php bin/console server:run
+
+SYMFONY5:  symfony server:start
+
+Then you can open this link http://127.0.0.1:8000/ , the result will be a text (Hello World!) in the browser.
+
+
+#########################
+
+#DATABASE Creation
+after naming it in .env line 28
+php bin/console doctrine:database:create
+
+Creating an Entity Class
+
+
+Suppose you're building an application where products need to be displayed, you can run this command to create an entity class and any fields you need:
+
+php bin/console make:entity
+
+#########
+
+After creating your entities you can create a table in your database based on the entity with the following command:
+php bin/console doctrine:schema:update --force
+
+
+######################## onward to getters and setters
+The first step towards building entity classes from an existing database is to ask Doctrine to introspect the database 
+and generate the corresponding metadata files. 
+Metadata files describe the entity class to generate based on table fields.
+
+php bin/console doctrine:mapping:import "App\Entity" annotation --path =src/Entity
+
+*
+
+The generated PHP classes now have properties and annotation metadata, but they do not have any getter or setter methods.
+
+To get that done is simple, to use a command to make the entities with getters and setters:
+
+
+php bin/console make:entity --regenerate App
+
+Now we can create a controller to see how doctrine can handle and work with our database:
+
+php bin/console make:controller
+
+You can call the controller: *Product* or depending on what we play with in crud 
+
+########################################
+Create an entities from an existing database:
+
+php bin/console doctrine:mapping:import "App\Entity" annotation --path=src/Entity (note = or no =)
+
+*
+
+The generated PHP classes now have properties and annotation metadata, but they do not have any getter or setter methods.
+
+To get that done is simple, to use a command to make the entities with getters and setters:
+
+
+php bin/console make:entity --regenerate App
+
+
+###########
+php bin/console doctrine:mapping:import "App\Entity" annotation --path src/Entity
+follows by: php bin/console make:entity --regenerate App
+
+
+########################### Clear Cache After +6 hours
+Clearing the Cache¶
+To clear the cache you can use the bin/console cache:pool:clear [pool] command. That will remove all the entries from your storage and you will have to recalculate all the values. You can also group your pools into “cache clearers”. There are 3 cache clearers by default:
+
+cache.global_clearer
+cache.system_clearer
+cache.app_clearer
+The global clearer clears all the cache items in every pool. The system cache clearer is used in the bin/console cache:clear command. The app clearer is the default clearer.
+
+To see all available cache pools:
+
+ php bin/console cache:pool:list
+Clear one pool:
+
+ php bin/console cache:pool:clear my_cache_pool
+Clear all custom pools:
+
+ php bin/console cache:pool:clear cache.app_clearer
+Clear all caches everywhere:
+
+ php bin/console cache:pool:clear cache.global_clearer
