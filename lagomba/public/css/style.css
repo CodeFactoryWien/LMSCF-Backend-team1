@@ -1,0 +1,117 @@
+h1 {
+	margin: 0;
+}
+
+.head {
+  height: 30em;
+  background-image: url("../img/header.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;  
+}
+
+[class*="parallax"] {
+  /* The image used */
+  background-image: url("../img/23.JPG");
+
+  /* Set a specific height */
+  min-height: 500px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+[class*="_1"] {
+    background-image: url("../img/16.JPG");
+}
+
+[class*="_2"] {
+    background-image: url("../img/20.JPG");
+}
+
+[class*="_3"] {
+    background-image: url("../img/15.JPG");
+}
+
+[class*="_4"] {
+    background-image: url("../img/25.jpeg");
+}
+
+[class*="_5"] {
+    background-image: url("../img/24.jpg");
+}
+
+[class*="_6"] {
+    background-image: url("../img/26.jpg");
+}
+
+.index {
+    max-width: 50em;
+    margin:  auto;
+   /*  text-shadow: 1px 1px 1px black; */ 
+}
+
+.about {
+	max-width: 50em;
+	margin:  auto;
+}
+
+.img {
+	width: 10em;
+}
+
+.imgContainer {
+	max-width: 35em;
+}
+
+.she {
+	width: 50em;
+}
+
+hr {
+   border: 2px solid #FFC107;
+   width: 150px;
+   margin: 0px;
+}
+
+h2 {
+   color: #FFC107;
+   text-shadow: 1px 1px 1px black; 
+}
+
+p {
+  font-size: 20px;      
+}
+
+.back {
+  	background-color: rgb(255,255,255);
+ 	background-color: rgba(255,255,255,0.5);     
+}
+
+.icon {
+  width: 2em;      
+}
+
+.icon-back {
+  background-color: #FFC107;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  font-size: 18px;
+}
+
+textarea {
+	resize: none;
+}
+
+.big {
+	font-size: 20px;
+}
