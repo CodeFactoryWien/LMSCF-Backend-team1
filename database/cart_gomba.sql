@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2020 at 04:05 PM
+-- Generation Time: Aug 14, 2020 at 03:17 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -74,7 +74,8 @@ CREATE TABLE `doctrine_migration_versions` (
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20200811110549', '2020-08-11 13:05:52', 305),
 ('DoctrineMigrations\\Version20200811122842', '2020-08-11 14:28:45', 103),
-('DoctrineMigrations\\Version20200811123140', '2020-08-11 14:31:43', 41);
+('DoctrineMigrations\\Version20200811123140', '2020-08-11 14:31:43', 41),
+('DoctrineMigrations\\Version20200814095539', '2020-08-14 11:56:03', 97);
 
 -- --------------------------------------------------------
 
@@ -88,7 +89,7 @@ CREATE TABLE `mushroom` (
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `unit_price` float NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `img` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `stock` int(11) NOT NULL,
@@ -103,6 +104,33 @@ INSERT INTO `mushroom` (`id`, `name`, `unit_price`, `description`, `created_at`,
 (1, 'Oyster Mushroom', 9.9, 'Peer out window, chatter at birds, lure them to mouth stare at wall turn and meow stare at wall some more meow again continue staring fight an alligator and win. Sniff other cat\'s butt and hang jaw half open thereafter good now the other hand', '2020-08-11 16:56:43', NULL, '/img/mushroom.jpg', 2000, 250),
 (2, 'Oyster Mushroom', 17.9, 'Peer out window, chatter at birds, lure them to mouth stare at wall turn and meow stare at wall some more meow again continue staring fight an alligator and win. Sniff other cat\'s butt and hang jaw half open thereafter good now the other hand', '2020-08-12 10:19:29', NULL, '/img/mushroom.jpg', 2000, 500),
 (3, 'Oyster Mushroom', 28, 'Peer out window, chatter at birds, lure them to mouth stare at wall turn and meow stare at wall some more meow again continue staring fight an alligator and win. Sniff other cat\'s butt and hang jaw half open thereafter good now the other hand', '2020-08-12 10:19:35', NULL, '/img/mushroom.jpg', 2000, 1000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zip` int(11) NOT NULL,
+  `tel_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `address`, `city`, `zip`, `tel_number`, `admin`) VALUES
+(1, 'balint.bb@gmail.com', '[]', '$argon2id$v=19$m=65536,t=4,p=1$YXVMbmxYelU1bUZiYzZnag$UG05tuHei+SP4HKFcc2Pfs/bvM1okVgKYGH8/RQfuLM', 'Kopalgasse 74/305', 'Wien', 1110, '6643706022', 0),
+(2, 'balint.bb.dev@gmail.com', '{ \"roles\": \"ROLE_ADMIN\"}', '$argon2id$v=19$m=65536,t=4,p=1$UGxaM1FxQzRtV2l4WVpXag$tNK5TOxwiJKOyn+KDPjgj8sdJNiKjxiw0gK5Z9FFks0', 'Kopalgasse 74/305', 'Wien', 1110, '6643706022', 1);
 
 --
 -- Indexes for dumped tables
@@ -135,6 +163,13 @@ ALTER TABLE `mushroom`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -155,6 +190,12 @@ ALTER TABLE `cart_item`
 --
 ALTER TABLE `mushroom`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

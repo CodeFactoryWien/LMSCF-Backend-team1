@@ -42,7 +42,7 @@ class MushroomController extends AbstractController
     }
 
     /**
-     * @Route("/webshop/mushroom-create",name="mushroom-create",methods={"GET","POST"})
+     * @Route("/admin/mushroom-create",name="mushroom-create",methods={"GET","POST"})
      *
      * @throws \Exception
      *
@@ -101,7 +101,7 @@ class MushroomController extends AbstractController
     }
 
     /**
-     * @Route("/webshop/edit/{id}", name="edit_mushroom")
+     * @Route("/admin/edit/{id}", name="edit_mushroom")
      *
      * @param mixed $id
      */
@@ -213,7 +213,7 @@ class MushroomController extends AbstractController
                     'Added to the Cart Succesfully'
                 );
 
-                return $this->redirect('/');
+                return $this->redirect('/webshop');
             }
 
             return $this->render('mushrooms/show.html.twig', [
@@ -228,7 +228,7 @@ class MushroomController extends AbstractController
     }
 
     /**
-     * @Route("/webshop/delete/{id}")
+     * @Route("/admin/delete/{id}")
      *
      * @param mixed $id
      */
@@ -252,5 +252,13 @@ class MushroomController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('webshop');
+    }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin()
+    {
+        return $this->render('admin.html.twig');
     }
 }

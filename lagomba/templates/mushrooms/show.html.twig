@@ -3,8 +3,10 @@
 <div class="container my-5">
 
   <a href="/webshop" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
-  <a href="/webshop/delete/{{ mushroom.id }}" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Delete</a>
-  <a href="/webshop/edit/{{ mushroom.id }}" class="btn btn-warning pull-right mr-2"><i class="fa fa-edit"></i> Edit</a>
+  {% if is_granted('ROLE_ADMIN') %}
+  <a href="/admin/delete/{{ mushroom.id }}" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Delete</a>
+  <a href="/admin/edit/{{ mushroom.id }}" class="btn btn-warning pull-right mr-2"><i class="fa fa-edit"></i> Edit</a>
+  {% endif %}
   </a>
   <br />
   <div class="row item-container">
