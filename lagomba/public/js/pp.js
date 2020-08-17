@@ -35,18 +35,26 @@ if (locationCheckout) {
         // Finalize the transaction
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
+
+                $.ajax({
+                    type: "GET",
+                    url: `http://${host}/orders/`,
                 
-                // Show a success message to the buyer
+                    dataType: "json",
+                    success: function (response) {
+                      if (response) {
+                          // Show a success message to the buyer
                 Swal.fire(
                     'Thank you!',
                     'Your order has been sent! You will be redirected!',
                     'success'
                   )
-                  
-                  
                   setTimeout(() => {
                       window.location.replace(`http://${host}/remove-cart/`);
                   }, 2500)
+                      }
+                    }
+                })
 
             });
         }

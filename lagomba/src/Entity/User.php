@@ -61,6 +61,15 @@ class User implements UserInterface
      */
     private $admin;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    public function __construct()
+    {
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +204,18 @@ class User implements UserInterface
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
