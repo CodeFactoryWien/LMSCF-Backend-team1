@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2020 at 03:17 PM
+-- Generation Time: Aug 18, 2020 at 05:15 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -57,6 +57,21 @@ CREATE TABLE `cart_item` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `send_date` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doctrine_migration_versions`
 --
 
@@ -75,7 +90,14 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20200811110549', '2020-08-11 13:05:52', 305),
 ('DoctrineMigrations\\Version20200811122842', '2020-08-11 14:28:45', 103),
 ('DoctrineMigrations\\Version20200811123140', '2020-08-11 14:31:43', 41),
-('DoctrineMigrations\\Version20200814095539', '2020-08-14 11:56:03', 97);
+('DoctrineMigrations\\Version20200814095539', '2020-08-14 11:56:03', 97),
+('DoctrineMigrations\\Version20200817101019', '2020-08-17 12:10:35', 1957),
+('DoctrineMigrations\\Version20200817103148', '2020-08-17 12:31:52', 66),
+('DoctrineMigrations\\Version20200817105120', '2020-08-17 12:51:24', 178),
+('DoctrineMigrations\\Version20200817105643', '2020-08-17 12:56:48', 69),
+('DoctrineMigrations\\Version20200817105746', '2020-08-17 12:57:50', 46),
+('DoctrineMigrations\\Version20200817110446', '2020-08-17 13:04:49', 43),
+('DoctrineMigrations\\Version20200818141801', '2020-08-18 16:18:11', 139);
 
 -- --------------------------------------------------------
 
@@ -108,6 +130,35 @@ INSERT INTO `mushroom` (`id`, `name`, `unit_price`, `description`, `created_at`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL,
+  `items` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zip` int(11) NOT NULL,
+  `total` double NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `order_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`id`, `items`, `address`, `city`, `zip`, `total`, `name`, `user_id`, `order_time`) VALUES
+(5, 'a:2:{i:0;a:5:{s:2:\"id\";s:1:\"1\";s:4:\"name\";s:15:\"Oyster Mushroom\";s:10:\"unit_price\";i:9;s:5:\"price\";i:9;s:3:\"qty\";i:1;}i:1;a:5:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:15:\"Oyster Mushroom\";s:10:\"unit_price\";i:17;s:5:\"price\";i:17;s:3:\"qty\";i:1;}}', 'Kopalgasse 74/305', 'Wien', 1110, 26, 'Balint Bakos', 1, '2020-08-17 14:13:08'),
+(6, 'a:1:{i:0;a:5:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:15:\"Oyster Mushroom\";s:10:\"unit_price\";i:17;s:5:\"price\";i:34;s:3:\"qty\";i:2;}}', 'Kopalgasse 74/305', 'Wien', 1110, 34, 'Balint Bakos', 2, '2020-08-17 16:09:39'),
+(7, 'a:1:{i:0;a:5:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:15:\"Oyster Mushroom\";s:10:\"unit_price\";i:17;s:5:\"price\";i:34;s:3:\"qty\";i:2;}}', 'Kopalgasse 74/305', 'Wien', 1110, 34, 'Balint Bakos', 2, '2020-08-17 16:11:26'),
+(8, 'a:1:{i:0;a:5:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:15:\"Oyster Mushroom\";s:10:\"unit_price\";i:17;s:5:\"price\";i:34;s:3:\"qty\";i:2;}}', 'Kopalgasse 74/305', 'Wien', 1110, 34, 'Balint Bakos', 2, '2020-08-17 16:12:11');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -121,16 +172,17 @@ CREATE TABLE `user` (
   `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `zip` int(11) NOT NULL,
   `tel_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT 0
+  `admin` tinyint(1) NOT NULL DEFAULT 0,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `address`, `city`, `zip`, `tel_number`, `admin`) VALUES
-(1, 'balint.bb@gmail.com', '[]', '$argon2id$v=19$m=65536,t=4,p=1$YXVMbmxYelU1bUZiYzZnag$UG05tuHei+SP4HKFcc2Pfs/bvM1okVgKYGH8/RQfuLM', 'Kopalgasse 74/305', 'Wien', 1110, '6643706022', 0),
-(2, 'balint.bb.dev@gmail.com', '{ \"roles\": \"ROLE_ADMIN\"}', '$argon2id$v=19$m=65536,t=4,p=1$UGxaM1FxQzRtV2l4WVpXag$tNK5TOxwiJKOyn+KDPjgj8sdJNiKjxiw0gK5Z9FFks0', 'Kopalgasse 74/305', 'Wien', 1110, '6643706022', 1);
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `address`, `city`, `zip`, `tel_number`, `admin`, `name`) VALUES
+(1, 'balint.bb@gmail.com', '[]', '$argon2id$v=19$m=65536,t=4,p=1$YXVMbmxYelU1bUZiYzZnag$UG05tuHei+SP4HKFcc2Pfs/bvM1okVgKYGH8/RQfuLM', 'Kopalgasse 74/305', 'Wien', 1110, '6643706022', 0, 'Balint Bakos'),
+(2, 'balint.bb.dev@gmail.com', '{ \"roles\": \"ROLE_ADMIN\"}', '$argon2id$v=19$m=65536,t=4,p=1$UGxaM1FxQzRtV2l4WVpXag$tNK5TOxwiJKOyn+KDPjgj8sdJNiKjxiw0gK5Z9FFks0', 'Kopalgasse 74/305', 'Wien', 1110, '6643706022', 1, 'Balint Bakos');
 
 --
 -- Indexes for dumped tables
@@ -151,6 +203,12 @@ ALTER TABLE `cart_item`
   ADD KEY `IDX_F0FE252722F63AD1` (`mushroom_id_id`);
 
 --
+-- Indexes for table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `doctrine_migration_versions`
 --
 ALTER TABLE `doctrine_migration_versions`
@@ -160,6 +218,12 @@ ALTER TABLE `doctrine_migration_versions`
 -- Indexes for table `mushroom`
 --
 ALTER TABLE `mushroom`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -186,10 +250,22 @@ ALTER TABLE `cart_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `mushroom`
 --
 ALTER TABLE `mushroom`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`

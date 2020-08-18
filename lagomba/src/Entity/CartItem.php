@@ -5,66 +5,71 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CartItem
- *
- * @ORM\Table(name="cart_item", indexes={@ORM\Index(name="IDX_F0FE252720AEF35F", columns={"cart_id_id"}), @ORM\Index(name="IDX_F0FE252722F63AD1", columns={"mushroom_id_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CartItemRepository")
  */
 class CartItem
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="qty", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="cartItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cart_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Mushroom", inversedBy="cartItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $mushroom_id;
+
+    /**
+     * @ORM\Column(type="integer")
      */
     private $qty;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="unit_price", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $unitPrice;
+    private $unit_price;
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $createdAt;
-
-    /**
-     * @var \Cart
-     *
-     * @ORM\ManyToOne(targetEntity="Cart")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="cart_id_id", referencedColumnName="id")
-     * })
-     */
-    private $cartId;
-
-    /**
-     * @var \Mushroom
-     *
-     * @ORM\ManyToOne(targetEntity="Mushroom")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mushroom_id_id", referencedColumnName="id")
-     * })
-     */
-    private $mushroomId;
+    private $created_at;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCartId(): ?Cart
+    {
+        return $this->cart_id;
+    }
+
+    public function setCartId(?Cart $cart_id): self
+    {
+        $this->cart_id = $cart_id;
+
+        return $this;
+    }
+
+    public function getMushroomId(): ?mushroom
+    {
+        return $this->mushroom_id;
+    }
+
+    public function setMushroomId(?mushroom $mushroom_id): self
+    {
+        $this->mushroom_id = $mushroom_id;
+
+        return $this;
     }
 
     public function getQty(): ?int
@@ -81,51 +86,25 @@ class CartItem
 
     public function getUnitPrice(): ?int
     {
-        return $this->unitPrice;
+        return $this->unit_price;
     }
 
-    public function setUnitPrice(int $unitPrice): self
+    public function setUnitPrice(int $unit_price): self
     {
-        $this->unitPrice = $unitPrice;
+        $this->unit_price = $unit_price;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
-
-    public function getCartId(): ?Cart
-    {
-        return $this->cartId;
-    }
-
-    public function setCartId(?Cart $cartId): self
-    {
-        $this->cartId = $cartId;
-
-        return $this;
-    }
-
-    public function getMushroomId(): ?Mushroom
-    {
-        return $this->mushroomId;
-    }
-
-    public function setMushroomId(?Mushroom $mushroomId): self
-    {
-        $this->mushroomId = $mushroomId;
-
-        return $this;
-    }
-
-
 }

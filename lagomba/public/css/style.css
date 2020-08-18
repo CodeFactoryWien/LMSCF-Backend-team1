@@ -1,74 +1,5 @@
 h1 {
-	margin: 0;
-}
-
-.head {
-  height: 30em;
-  background-image: url("../img/header.JPG");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;  
-}
-
-[class*="parallax"] {
-  /* The image used */
-  background-image: url("../img/23.JPG");
-
-  /* Set a specific height */
-  min-height: 500px; 
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-[class*="_1"] {
-    background-image: url("../img/16.JPG");
-}
-
-[class*="_2"] {
-    background-image: url("../img/20.JPG");
-}
-
-[class*="_3"] {
-    background-image: url("../img/15.JPG");
-}
-
-[class*="_4"] {
-    background-image: url("../img/25.jpeg");
-}
-
-[class*="_5"] {
-    background-image: url("../img/24.jpg");
-}
-
-[class*="_6"] {
-    background-image: url("../img/26.jpg");
-}
-
-.index {
-    max-width: 50em;
-    margin:  auto;
-   /*  text-shadow: 1px 1px 1px black; */ 
-}
-
-.about {
-	max-width: 50em;
-	margin:  auto;
-}
-
-.img {
-	width: 10em;
-}
-
-.imgContainer {
-	max-width: 35em;
-}
-
-.she {
-	width: 50em;
+  margin: 0;
 }
 
 hr {
@@ -78,25 +9,11 @@ hr {
 }
 
 h2 {
-   color: #FFC107;
-   text-shadow: 1px 1px 1px black; 
+   color: #FFC107;    
 }
 
 p {
   font-size: 20px;      
-}
-
-.back {
-  	background-color: rgb(255,255,255);
- 	background-color: rgba(255,255,255,0.5);     
-}
-
-.icon {
-  width: 2em;      
-}
-
-.icon-back {
-  background-color: #FFC107;
 }
 
 ul {
@@ -109,9 +26,79 @@ li {
 }
 
 textarea {
-	resize: none;
+  resize: none;
 }
 
-.big {
-	font-size: 20px;
+/* about mushrooms page start */
+[class*="parallax"] {
+  /* The image used */
+  background-image: url("../img/16.JPG");
+
+  /* Set a specific height */
+  min-height: 500px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+[class*="_1"] {
+    background-image: url("../img/5.JPG");
+}
+
+[class*="_2"] {
+    background-image: url("../img/2.JPG");
+}
+
+[class*="_3"] {
+    background-image: url("../img/3.jpg");
+}
+
+[class*="_4"] {
+    background-image: url("../img/4.jpg");
+}
+
+[class*="_5"] {
+    background-image: url("../img/1.JPG");
+}
+
+/* about-mushrooms page end */
+
+
+/* about-us page start */
+.img {
+  max-width: 10em;
+}
+
+.she {
+  max-width: 15em;
+}
+
+.coffee {
+  background-image: url('../img/coffee.jpeg');
+  background-position: center;
+  background-size: cover;
+}
+
+[class*="_6"] {
+    background-image: url("../img/how.jpeg");
+}
+
+.hey {
+  max-width: 20em;
+}
+
+/* about-us page end */
+
+
+/* resipes-page start */
+.icon {
+  width: 2em;      
+}
+
+.icon-back {
+  background-color: #FFC107;
+}
+/* resipes-page end */
