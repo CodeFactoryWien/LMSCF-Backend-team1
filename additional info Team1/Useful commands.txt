@@ -131,3 +131,8 @@ Clear all custom pools:
 Clear all caches everywhere:
 
  php bin/console cache:pool:clear cache.global_clearer
+
+
+ normal user credentials: balint.bb@gmail.com
+admin credetials: balint.bb.dev@gmail.com
+password for both 123456

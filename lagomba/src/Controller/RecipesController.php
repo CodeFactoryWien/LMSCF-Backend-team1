@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Recipes;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class RecipesController extends AbstractController
 {
@@ -31,6 +32,7 @@ class RecipesController extends AbstractController
         ->add('preptime', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('preplevel', ChoiceType::class, array('choices'=>array('hard'=>'hard', 'medium'=>'medium', 'easy'=>'easy'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
         ->add('description', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
+        ->add('image', FileType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('save', SubmitType::class, array('label'=> 'Create Recipe', 'attr' => array('class'=> 'btn-primary', 'style'=>'margin-bottom:15px')))
         ->getForm();
         $form->handleRequest($request);
