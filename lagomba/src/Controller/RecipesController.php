@@ -30,9 +30,9 @@ class RecipesController extends AbstractController
         ->add('steps', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('requires', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('preptime', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('preplevel', ChoiceType::class, array('choices'=>array('hard'=>'hard', 'medium'=>'medium', 'easy'=>'easy'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
+        ->add('preplevel', ChoiceType::class, array('lable'=>'select','choices'=>array('hard'=>'hard', 'medium'=>'medium', 'easy'=>'easy'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
         ->add('description', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('image', FileType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
+        ->add('image', FileType::class, array('label'=>'Upload File','attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('save', SubmitType::class, array('label'=> 'Create Recipe', 'attr' => array('class'=> 'btn-primary', 'style'=>'margin-bottom:15px')))
         ->getForm();
         $form->handleRequest($request);
@@ -45,6 +45,7 @@ class RecipesController extends AbstractController
             $preptime = $form['preptime']->getPrepTime();
             $preplevel = $form['preplevel']->getPrepLevel();
             $description = $form['description']->getDescription();
+            $image = $form['image']->getImage();
 
             $recipes->setTitle($title);
             $recipes->setSteps($steps);
@@ -53,6 +54,15 @@ class RecipesController extends AbstractController
             $recipes->setPrepTime($preptime);
             $recipes->setPrepLevel($preplevel);
             $recipes->setDescription($description);
+            $recipes->setImage($image);
+
+            $image = $request->images->get('post')['my_image'];
+
+            $uploads_directory= $this->getParameter('uploads_directory');
+            $imagename =md5(uniqid()) . '.' . $image->guessExtension();
+            $image->move(
+                $uploads_directory, $imagename
+            );
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($recipes);
@@ -69,4 +79,6 @@ class RecipesController extends AbstractController
 
         return $this->render('recipes/create.html.twig', array('form' => $form->createView()));
     }
+
+
 }
