@@ -102,5 +102,4 @@ class Cart
         return $this;
     }
 
-
 }
