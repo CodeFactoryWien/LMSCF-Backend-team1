@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Recipes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response ;
@@ -11,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Entity\Recipes;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class RecipesController extends AbstractController
@@ -30,7 +30,7 @@ class RecipesController extends AbstractController
         ->add('steps', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('requires', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('preptime', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('preplevel', ChoiceType::class, array('lable'=>'select','choices'=>array('hard'=>'hard', 'medium'=>'medium', 'easy'=>'easy'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
+        ->add('preplevel', ChoiceType::class, array('choices'=>array('hard'=>'hard', 'medium'=>'medium', 'easy'=>'easy'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
         ->add('description', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('image', FileType::class, array('label'=>'Upload File','attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('save', SubmitType::class, array('label'=> 'Create Recipe', 'attr' => array('class'=> 'btn-primary', 'style'=>'margin-bottom:15px')))
@@ -56,7 +56,7 @@ class RecipesController extends AbstractController
             $recipes->setDescription($description);
             $recipes->setImage($image);
 
-            $image = $request->images->get('post')['my_image'];
+            $image = $request->image->get('post')['image'];
 
             $uploads_directory= $this->getParameter('uploads_directory');
             $imagename =md5(uniqid()) . '.' . $image->guessExtension();
@@ -69,8 +69,8 @@ class RecipesController extends AbstractController
 
             $em->flush();
             $this->addFlash(
-                    'message',
-                    'Recipe has been Added'
+                    'notice',
+                    'Your Recipe has been Added'
                     );
             return $this->redirectToRoute('/');
 
