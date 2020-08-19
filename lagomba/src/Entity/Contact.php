@@ -45,7 +45,7 @@ class Contact
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="send_date", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="sendDate", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $sendDate = 'CURRENT_TIMESTAMP';
 
